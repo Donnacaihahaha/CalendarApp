@@ -3,16 +3,18 @@ package com.example.appple.calendarapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class showevents extends AppCompatActivity {
+public class showevents extends AppCompatActivity implements android.view.View.OnClickListener{
 
-String datetime;
+   String datetime;
     private ListView lv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +25,26 @@ String datetime;
         eventsRepos repo = new eventsRepos(this);
         lv = (ListView) findViewById(R.id.list);
         ArrayList<HashMap<String, String>> studentList =  repo.getStudentByDate(datetime);
-        ArrayList<String> events = new ArrayList<String>();
-        ListAdapter adapter = new SimpleAdapter(showevents.this,studentList, R.layout.view_student_entry, new String[] { "id","name"}, new int[] {R.id.student_Id, R.id.student_name});
-        setListAdapter(adapter);
+        if(studentList.size()!=0) {
 
 
+
+
+            ListAdapter adapter = new SimpleAdapter( );
+            lv.setAdapter(adapter);
+        }else{
+            Toast.makeText(this, "No events!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    public void onClick(View view) {
+        if (view == findViewById(R.id.btnAdd)) {
+            Intent intent = new Intent(this, AddEvent.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("message1", datetime);
+            intent.putExtras(bundle);
+            startActivity(intent);
+
+        }
     }
 }

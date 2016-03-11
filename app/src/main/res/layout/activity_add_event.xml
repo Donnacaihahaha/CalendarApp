@@ -30,17 +30,6 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="29dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Age"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="29dp" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,49 +44,23 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/editTextEmail"
-        android:layout_above="@+id/textView3"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_alignRight="@+id/editTextName"
-        android:layout_alignEnd="@+id/editTextName" />
+        android:hint="event name"
+        android:id="@+id/editTexteventname"
+    />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editTextAge"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_alignLeft="@+id/editTextEmail"
-        android:layout_alignStart="@+id/editTextEmail"
-        android:layout_alignRight="@+id/editTextEmail"
-        android:layout_alignEnd="@+id/editTextEmail" />
+        android:hint="event details"
+        android:id="@+id/editTexteventdetails"
+  />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
         android:id="@+id/btnSave"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/btnClose" />
+        android:layout_alignParentBottom="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Close"
-        android:id="@+id/btnClose"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        android:id="@+id/btnDelete"
-        android:layout_alignTop="@+id/btnSave"
-        android:layout_toLeftOf="@+id/btnSave" />
 
 </LinearLayout>

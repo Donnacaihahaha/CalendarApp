@@ -19,8 +19,8 @@
             android:name=".AddEvent"
             android:label="@string/title_activity_add_event"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".showevents"></activity>
+        <activity android:name=".showevents" />
+        <activity android:name=".eventdetails" />
     </application>
 
 </manifest>
