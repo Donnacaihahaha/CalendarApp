@@ -12,13 +12,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "crud.db";
 
-    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public DatabaseHelper(Context context) {
+        super(context,DATABASE_NAME , null, DATABASE_VERSION );
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE_EVENT = "CREATE TABLE" + TableData.events + "(" + TableData.dateandtime + "TEXT, " + TableData.eventsdetails + " TEXT )";
+        String CREATE_TABLE_EVENT = "CREATE TABLE" + TableData.TABLE+
+                "(" + TableData.eventnumber + "INTEGER PRIMARY KEY AUTOINCREMENT" +
+                TableData.events +"TEXT, "+
+                TableData.dateandtime + "TEXT, " +
+                TableData.eventsdetails + " TEXT )";
         db.execSQL(CREATE_TABLE_EVENT);
 
     }
