@@ -1,5 +1,6 @@
 package com.example.appple.calendarapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +23,6 @@ public class EventAdapter {
     private static class ViewHolder {
         TextView title_textView;
         TextView date_textView;
-        TextView time_textView;
         Button delete_button;
     }
 
@@ -61,7 +61,6 @@ public class EventAdapter {
             // Initialize the UI elements
             viewHolder.title_textView = (TextView) convertView.findViewById(R.id.title_textView);
             viewHolder.date_textView = (TextView) convertView.findViewById(R.id.date_textView);
-            viewHolder.time_textView = (TextView) convertView.findViewById(R.id.time_textView);
             viewHolder.delete_button = (Button) convertView.findViewById(R.id.delete_button);
 
             convertView.setTag(viewHolder);
@@ -77,16 +76,12 @@ public class EventAdapter {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy", Locale.US);
         viewHolder.date_textView.setText(dateFormat.format(event.getDate()));
-
-        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.US);
-        viewHolder.time_textView.setText(timeFormat.format(event.getDate()));
-
-        viewHolder.delete_button.setOnClickListener(new View.OnClickListener() {
+         viewHolder.delete_button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if (context instanceof CalendarActivity) {
-                    ((CalendarActivity) context).deleteEvent(event);
+                if (context instanceof MainActivity) {
+                    ((MainActivity) context).deleteEvent(event);
                 } else {
                     Log.d("EventAdapter", "Event was unable to be deleted. " +
                             "Context not an instance of CalendarActivity.");

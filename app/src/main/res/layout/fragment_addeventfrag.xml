@@ -34,41 +34,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Date:"
-                android:id="@+id/date_textView" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="date"
+                android:hint="MM/dd/yy"
                 android:ems="10"
                 android:focusable="false"
                 android:id="@+id/date_editText" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Time:"
-                android:id="@+id/time_textView" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="time"
-                android:ems="10"
-                android:focusable="false"
-                android:id="@+id/time_editText" />
         </LinearLayout>
 
         <Space
@@ -80,12 +54,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="CANCEL"
-                android:id="@+id/cancel_button"
-                android:layout_weight="1" />
 
             <Button
                 android:layout_width="wrap_content"

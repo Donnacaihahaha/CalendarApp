@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.google.android.gms.appindexing.Action;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     DaoMaster daoMaster;
     DaoSession daoSession;
     EventDao eventDao;
-
+    Button btnAdd;
     private final int ADD_EVENT_REQUEST = 1;
 
     @Override
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         calendarView = (CalendarView) findViewById(R.id.calendar_calendarView);
         eventsListView = (ListView) findViewById(R.id.events_listView);
 
-        eventsList = new ArrayList<>();
+        eventsList = new ArrayList<Event>();
         eventsListAdapter = new EventAdapter(this, eventsList);
         eventsListView.setAdapter(eventsListAdapter);
 
@@ -72,71 +73,42 @@ public class MainActivity extends AppCompatActivity {
 
                 selectedDay.set(Calendar.MONTH, month);
                 selectedDay.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                selectedDay.set(Calendar.HOUR_OF_DAY, 0);
-                selectedDay.set(Calendar.MINUTE, 0);
-                selectedDay.set(Calendar.SECOND, 0);
-                selectedDay.set(Calendar.MILLISECOND, 0);
-
                 setEventsListForDate(selectedDay.getTime());
             }
         });
 
-        // Set the action of the 'Add' button
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        btnAdd =  (Button) findViewById(R.id.Add);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), AddEventActivity.class);
+                Intent intent = new Intent(view.getContext(), AddEvent.class);
                 startActivityForResult(intent, ADD_EVENT_REQUEST);
             }
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_calendar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public void setEventsListForDate(Date date) {
 
-        Calendar today = Calendar.getInstance();
-        today.setTime(date);
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-        today.set(Calendar.MILLISECOND, 0);
+        Calendar todaytime = Calendar.getInstance();
+        todaytime.setTime(date);
+        todaytime.set(Calendar.HOUR_OF_DAY, 0);
+        todaytime.set(Calendar.MINUTE, 0);
+        todaytime.set(Calendar.SECOND, 0);
+        todaytime.set(Calendar.MILLISECOND, 0);
 
-        Calendar tomorrow = Calendar.getInstance();
-        tomorrow.setTime(date);
-        tomorrow.add(Calendar.DATE, 1);
-        tomorrow.set(Calendar.HOUR_OF_DAY, 0);
-        tomorrow.set(Calendar.MINUTE, 0);
-        tomorrow.set(Calendar.SECOND, 0);
-        tomorrow.set(Calendar.MILLISECOND, 0);
+        Calendar tomorrowtime = Calendar.getInstance();
+        tomorrowtime.setTime(date);
+        tomorrowtime.add(Calendar.DATE, 1);
+        tomorrowtime.set(Calendar.HOUR_OF_DAY, 0);
+        tomorrowtime.set(Calendar.MINUTE, 0);
+        tomorrowtime.set(Calendar.SECOND, 0);
 
         // Get list of Guest objects in database using QueryBuilder.
         // If list is null, then database tables were created for first time,
         // so we call "closeReopenDatabase()" to reopen the database.
         QueryBuilder queryBuilder = eventDao.queryBuilder();
-        List<Event> eventListFromDB = queryBuilder.where(EventDao.Properties.Date.between(today.getTime(), tomorrow.getTime())).list();
+        List<Event> eventListFromDB = queryBuilder.where(EventDao.Properties.Date.between(todaytime.getTime(), tomorrowtime.getTime())).list();
 
         if (eventListFromDB == null) {
             closeReopenDatabase();
@@ -152,27 +124,16 @@ public class MainActivity extends AppCompatActivity {
                 return event1.getDate().compareTo(event2.getDate());
             }
         });
-
-        eventsListAdapter.notifyDataSetChanged();
-
-        // Force the focus of the calendarView to the specified date
         calendarView.setDate(date.getTime());
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        // Check which request we're responding to and ensure the result was successful
-        if (requestCode == ADD_EVENT_REQUEST && resultCode == RESULT_OK) {
 
-            // Generate random Id for Guest object to place in database
             Random rand = new Random();
-
-            // Use rand.nextLong() for Guest object Id.
             long id = rand.nextLong();
-
-            // Make sure the id doesn't already exist in the database
-            while (eventDao.load(id) != null) {
+            while (eventDao.load(id) != null) {//check EventDao
                 id = rand.nextLong();
             }
 
@@ -180,11 +141,9 @@ public class MainActivity extends AppCompatActivity {
             Date date = (Date) data.getSerializableExtra("date");
 
             Event event = new Event(id, title, date);
-
             eventDao.insert(event);
-
             setEventsListForDate(date);
-        }
+
     }
 
     public void deleteEvent(Event event) {
