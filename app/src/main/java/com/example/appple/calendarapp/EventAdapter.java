@@ -83,8 +83,7 @@ public class EventAdapter extends BaseAdapter  {
                 if (context instanceof MainActivity) {
                     ((MainActivity) context).deleteEvent(event);
                 } else {
-                    Log.d("EventAdapter", "Event was unable to be deleted. " +
-                            "Context not an instance of CalendarActivity.");
+                    Log.d("EventAdapter", "cannot delete");
                 }
             }
         });
