@@ -1,6 +1,6 @@
 package com.example.appple.calendarapp;
 
-import android.app.Activity;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
+import android.widget.BaseAdapter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -16,7 +16,7 @@ import java.util.Locale;
 /**
  * Created by appple on 3/11/16.
  */
-public class EventAdapter {
+public class EventAdapter extends BaseAdapter  {
     private ArrayList<Event> eventsList;
     private Context context;
 

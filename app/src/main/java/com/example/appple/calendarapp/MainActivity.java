@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (eventListFromDB == null) {
             closeReopenDatabase();
-            eventListFromDB = queryBuilder.where(EventDao.Properties.Date.between(today.getTime(), tomorrow.getTime())).list();
+            eventListFromDB = queryBuilder.where(EventDao.Properties.Date.between(todaytime.getTime(), tomorrowtime.getTime())).list();
         }
 
         eventsList.clear();
