@@ -18,7 +18,7 @@ public class AddEvent extends AppCompatActivity {
 
         getFragmentManager()
                 .beginTransaction()
-                .replace(R.id.CalendarFragment, new addeventFragment())
+                .replace(R.id.CalendarFragment, addeventfrag.newInstance())
                 .addToBackStack(null)
                 .commit();
     }
