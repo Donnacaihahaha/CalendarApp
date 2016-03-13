@@ -21,9 +21,9 @@ public class EventAdapter extends BaseAdapter  {
     private Context context;
 
     private static class ViewHolder {
-        TextView title_textView;
-        TextView date_textView;
-        Button delete_button;
+        TextView textTitle;
+        TextView textDate;
+        Button btnDel;
     }
 
     public EventAdapter(Context context, ArrayList<Event> eventsList) {
@@ -56,12 +56,12 @@ public class EventAdapter extends BaseAdapter  {
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(R.layout.event_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.eventlist, parent, false);
 
             // Initialize the UI elements
-            viewHolder.title_textView = (TextView) convertView.findViewById(R.id.title_textView);
-            viewHolder.date_textView = (TextView) convertView.findViewById(R.id.date_textView);
-            viewHolder.delete_button = (Button) convertView.findViewById(R.id.delete_button);
+            viewHolder.textTitle = (TextView) convertView.findViewById(R.id.textTitle);
+            viewHolder.textDate = (TextView) convertView.findViewById(R.id.textDate);
+            viewHolder.btnDel = (Button) convertView.findViewById(R.id.btnDel);
 
             convertView.setTag(viewHolder);
         } else {
@@ -72,11 +72,11 @@ public class EventAdapter extends BaseAdapter  {
         final Event event = getItem(position);
 
         // Populate the data into the template view using the data object
-        viewHolder.title_textView.setText(event.getTitle());
+        viewHolder.textTitle.setText(event.getTitle());
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy", Locale.US);
-        viewHolder.date_textView.setText(dateFormat.format(event.getDate()));
-         viewHolder.delete_button.setOnClickListener(new View.OnClickListener() {
+        viewHolder.textDate.setText(dateFormat.format(event.getDate()));
+         viewHolder.btnDel.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {

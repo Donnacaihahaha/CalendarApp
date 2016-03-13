@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         initDatabase();
 
-        //this.setEventsListForDate(new Date(calendarView.getDate()));
+        this.setEventsListForDate(new Date(calendarView.getDate()));//show events for this day
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 

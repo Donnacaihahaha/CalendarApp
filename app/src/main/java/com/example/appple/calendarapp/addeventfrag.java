@@ -12,17 +12,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 public class addeventfrag extends Fragment {
-    private EditText title_editText;
-    private EditText date_editText;
-    private Button save_button;
+    EditText editTitle;
+    EditText editDate;
+    Button btnsave;
 
-    private Calendar calendar;
+    Calendar calendar;
 
     public addeventfrag() {
         // Required empty public constructor
@@ -47,12 +46,12 @@ public class addeventfrag extends Fragment {
 
         calendar = Calendar.getInstance();
 
-        title_editText = (EditText) view.findViewById(R.id.title_editText);
-        date_editText = (EditText) view.findViewById(R.id.date_editText);
-        save_button = (Button) view.findViewById(R.id.save_button);
+        editTitle = (EditText) view.findViewById(R.id.editTitle);
+        editDate = (EditText) view.findViewById(R.id.editDate);
+        btnsave = (Button) view.findViewById(R.id.btnSave);
 
         setDateOnEditText();
-        date_editText.setOnClickListener(new View.OnClickListener() {
+        editDate.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -62,12 +61,12 @@ public class addeventfrag extends Fragment {
                         calendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-        save_button.setOnClickListener(new View.OnClickListener() {
+        btnsave.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
-                if ("".equals(title_editText.getText().toString())) {
+                if ("".equals(editTitle.getText().toString())) {
                     new AlertDialog.Builder(getActivity())
                             .setMessage("Please provide a title")
                             .setCancelable(true)
@@ -84,7 +83,7 @@ public class addeventfrag extends Fragment {
                 }
 
                 Intent data = new Intent();
-                data.putExtra("title", title_editText.getText().toString());
+                data.putExtra("title", editTitle.getText().toString());
                 data.putExtra("date", calendar.getTime());
                 getActivity().setResult(getActivity().RESULT_OK, data);
                 getActivity().finish();
@@ -111,7 +110,7 @@ public class addeventfrag extends Fragment {
         String dateFormat = "MM/dd/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.US);
 
-        date_editText.setText(sdf.format(calendar.getTime()));
+        editDate.setText(sdf.format(calendar.getTime()));
     }
 
 }
