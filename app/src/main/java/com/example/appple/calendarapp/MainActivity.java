@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     DaoSession daoSession;
     EventDao eventDao;
     Button btnAdd;
-    private final int ADD_EVENT_REQUEST = 1;
+    private final int ADD_EVENT = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +44,9 @@ public class MainActivity extends AppCompatActivity {
         eventsListAdapter = new EventAdapter(this, eventsList);
         eventsListView.setAdapter(eventsListAdapter);
 
-        // initialise the database
         initDatabase();
 
-        // Populate the eventsList for the date selected on the calendar view
-
-        this.setEventsListForDate(new Date(calendarView.getDate()));
+        //this.setEventsListForDate(new Date(calendarView.getDate()));
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
@@ -70,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), AddEvent.class);
-                startActivityForResult(intent, ADD_EVENT_REQUEST);
+                startActivityForResult(intent, ADD_EVENT);
             }
         });
     }
@@ -92,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         tomorrowtime.set(Calendar.MINUTE, 0);
         tomorrowtime.set(Calendar.SECOND, 0);
 
-        // Get list of Guest objects in database using QueryBuilder.
+        // Get list of Event objects in database using QueryBuilder.
         // If list is null, then database tables were created for first time,
         // so we call "closeReopenDatabase()" to reopen the database.
         QueryBuilder queryBuilder = eventDao.queryBuilder();
@@ -112,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 return event1.getDate().compareTo(event2.getDate());
             }
         });
+        eventsListAdapter.notifyDataSetChanged();
         calendarView.setDate(date.getTime());
     }
 
